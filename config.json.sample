@@ -11,7 +11,7 @@
         },
         "rpc": {
             "rpc_host": "127.0.0.1",
-            "rpc_port": "20102",
+            "rpc_port": "11772",
             "rpc_user": "user",
             "rpc_pass": "pass"
         },

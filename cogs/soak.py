@@ -28,7 +28,7 @@ class Soak:
     async def soak(self, ctx, amount: float):
         """Tip all online users"""
         if self.use_max_recipients and self.soak_max_recipients == 0:
-            await self.bot.say("**:warning: max users for soak is set to 0! Talk to the config owner. :warning:**")
+            await self.bot.say("**:warning: soakの最大ユーザーが0に設定されています。開発者に連絡し、修正を依頼してください。:warning:**")
             return
 
         snowflake = ctx.message.author.id
@@ -37,7 +37,7 @@ class Soak:
         balance = mysql.get_balance(snowflake, check_update=True)
 
         if float(balance) < amount:
-            await self.bot.say("{} **:warning:You cannot soak more money than you have!:warning:**".format(ctx.message.author.mention))
+            await self.bot.say("{} **:warning:所持金より多くをsoakすることは出来ません。!:warning:**".format(ctx.message.author.mention))
             return
 
         online_users = [x for x in ctx.message.server.members if x.status == discord.Status.online]
@@ -72,15 +72,15 @@ class Soak:
             mysql.check_for_user(user.id)
             mysql.add_tip(snowflake, user.id, amount_split)
 
-        long_soak_msg = "{} **Soaked {} PHR on {} [{}] :money_with_wings:**".format(ctx.message.author.mention, str(amount_split), ', '.join([x.mention for x in receivers]), str(amount))
+        long_soak_msg = "{} ** {} PHR を {} [{}] 人へsoakしました！:money_with_wings:**".format(ctx.message.author.mention, str(amount_split), ', '.join([x.mention for x in receivers]), str(amount))
 
         if len(long_soak_msg) > 2000:
-            await self.bot.say("{} **Soaked {} PHR on {} users [{}] :money_with_wings:**".format(ctx.message.author.mention, str(amount_split), len_receivers, str(amount)))
+            await self.bot.say("{} ** {} PHR を {} ユーザーへsoakしました！ [{}] :money_with_wings:**".format(ctx.message.author.mention, str(amount_split), len_receivers, str(amount)))
         else:
             await self.bot.say(long_soak_msg)
 
     @commands.command()
-    async def soak_info(self):        
+    async def soak_info(self):
         if self.use_max_recipients:
             st_max_users = str(self.soak_max_recipients)
         else:
@@ -90,8 +90,8 @@ class Soak:
             st_min_received = str(self.soak_min_received)
         else:
             st_min_received = "<disabled>"
-            
-        await self.bot.say("Soak info: max recipients {}, min amount receivable {}".format(st_max_users, st_min_received))
+
+        await self.bot.say("Soak 情報: 最大参加者 {}, 受け取りに必要な枚数 {}".format(st_max_users, st_min_received))
 
 def setup(bot):
     bot.add_cog(Soak(bot))

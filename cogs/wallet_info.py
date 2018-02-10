@@ -16,9 +16,9 @@ class Wallet:
         block_height = info["blocks"]
         connection_count = self.rpc.getconnectioncount()
         embed = discord.Embed(colour=discord.Colour.red())
-        embed.add_field(name="Balance", value="{:.8f} PHR".format(float(wallet_balance)))
-        embed.add_field(name="Connections", value=connection_count)
-        embed.add_field(name="Block Height", value=block_height)
+        embed.add_field(name="残高", value="{:.8f} PHR".format(float(wallet_balance)))
+        embed.add_field(name="接続数", value=connection_count)
+        embed.add_field(name="ブロック高", value=block_height)
 
         try:
             await self.bot.say(embed=embed)
@@ -28,4 +28,3 @@ class Wallet:
 
 def setup(bot):
     bot.add_cog(Wallet(bot))
-

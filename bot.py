@@ -63,15 +63,15 @@ async def shutdown(ctx):
     author = str(ctx.message.author)
 
     try:
-        await bot.say("Shutting down...")
+        await bot.say("シャットダウンします...")
         await bot.logout()
         bot.loop.stop()
-        output.info('{} has shut down the bot...'.format(author))
+        output.info('{} がボットを停止中です...'.format(author))
 
     except Exception as e:
         exc = '{}: {}'.format(type(e).__name__, e)
-        output.error('{} has attempted to shut down the bot, but the following '
-                     'exception occurred;\n\t->{}'.format(author, exc))
+        output.error('{} がボットを停止しようとしましたが、次のエラーが発生しました。'
+                     ';\n\t->{}'.format(author, exc))
 
 
 @bot.command(pass_context=True, hidden=True)
@@ -83,9 +83,9 @@ async def load(ctx, module: str):
 
     try:
         bot.load_extension("cogs.{}".format(module))
-        output.info('{} loaded module: {}'.format(author, module))
+        output.info('{} がmoduleをロードしました: {}'.format(author, module))
         loaded_extensions.append(module)
-        await bot.say("Successfully loaded {}.py".format(module))
+        await bot.say("次のロードに成功しました {}.py".format(module))
 
     except Exception as e:
         exc = '{}: {}'.format(type(e).__name__, e)
@@ -130,10 +130,10 @@ async def restart(ctx):
     author = str(ctx.message.author)
 
     try:
-        await bot.say("Restarting...")
+        await bot.say("再起動中...")
         await bot.logout()
         bot.loop.stop()
-        output.info('{} has restarted the bot...'.format(author))
+        output.info('{} がボットを再起動させています...'.format(author))
         os.system('sh restart.sh')
 
     except Exception as e:

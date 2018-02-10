@@ -16,11 +16,11 @@ class Uptime:
         difference = int(round(current_time - start_time))
         text = str(datetime.timedelta(seconds=difference))
         embed = discord.Embed(colour=0xFF0000)
-        embed.add_field(name="Uptime", value=text)
+        embed.add_field(name="稼働時間", value=text)
         try:
             await self.bot.say(embed=embed)
         except discord.HTTPException:
-            await self.bot.say("Current uptime: " + text)
+            await self.bot.say("現在の稼働時間: " + text)
 
 
 def setup(bot):

@@ -14,9 +14,9 @@ class Deposit:
         # Check if user exists in db
         mysql.check_for_user(user.id)
         user_addy = mysql.get_address(user.id)
-        await self.bot.send_message(user, user.mention + "'s Deposit Address: `" + str(user_addy) + "`" + "\n\nRemember to use !balance to check your balance and not an explorer. The address balance and your actual balance are not always the same!")
+        await self.bot.send_message(user, user.mention + "'のデポジットアドレス: `" + str(user_addy) + "`" + "\n\n!balance を入力し残高を確認してください。同期は即座に行われるわけではないので、少々お待ちください。")
         if ctx.message.server is not None:
-            await self.bot.say("{}, I PMed you your address! Make sure to double check that it is from me!".format(user.mention))
+            await self.bot.say("{}, PMでアドレスを送信しました。このボットから送られたアドレスかご確認ください！".format(user.mention))
 
 def setup(bot):
     bot.add_cog(Deposit(bot))
