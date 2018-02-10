@@ -12,12 +12,12 @@ class Pricing:
     @commands.command()
     async def price(self, amount=1):
         """
-        Checks the price of PHR
+        PHRの価格情報を確認できます。
         """
         headers={"user-agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36"}
         try:
             async with ClientSession() as session:
-                async with session.get("https://api.coinmarketcap.com/v1/ticker/", headers=headers) as response:
+                async with session.get("https://api.coinmarketcap.com/v1/ticker/") as response:
                     responseRaw = await response.read()
                     priceData = json.loads(responseRaw)['phore']
                     embed = discord.Embed(colour=0x00FF00)

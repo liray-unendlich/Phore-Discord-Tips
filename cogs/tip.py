@@ -13,7 +13,7 @@ class Tip:
     @commands.command(pass_context=True)
     @commands.check(checks.in_server)
     async def tip(self, ctx, user:discord.Member, amount:float):
-        """Tip a user coins"""
+        """ユーザーに対してtipをします。"""
         snowflake = ctx.message.author.id
 
         tip_user = user.id

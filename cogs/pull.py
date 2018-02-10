@@ -10,7 +10,7 @@ class Pull:
     @commands.check(checks.is_owner)
     async def pull(self, ctx):
         """
-        Updates the bot.
+        ボットをアップデートします。
         """
         await self.bot.say("Pulling...")
         try:

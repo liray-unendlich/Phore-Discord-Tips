@@ -14,26 +14,26 @@ class Server:
     @commands.check(checks.is_owner)
     async def allowsoak(self, ctx, enable: bool):
         """
-        Should the users in the server be allowed to soak all online users?
+        サーバー上のユーザーに対してsoakを利用可能にします。
         """
         mysql.set_soak(ctx.message.server, int(enable))
         if enable:
-            await self.bot.say("Ok! Soaking is now enabled!")
+            await self.bot.say("Soakは現在利用可能です。")
         else:
-            await self.bot.say("Ok! Soaking is now disabled.")
+            await self.bot.say("Soakは現在利用できません。")
 
     @commands.command(pass_context=True)
     @commands.check(checks.in_server)
     @commands.check(checks.is_owner)
     async def checksoak(self, ctx):
         """
-        Checks if soak is available on the server.
+        サーバー上でsoakが利用可能かチェックします。
         """
         result_set = mysql.check_soak(ctx.message.server)
         if result_set:
-            await self.bot.say("Soaking is enabled!")
+            await self.bot.say("Soakは利用可能です。")
         else:
-            await self.bot.say("Soaking is disabled.")
+            await self.bot.say("Soakは利用できません。")
 
 
 def setup(bot):

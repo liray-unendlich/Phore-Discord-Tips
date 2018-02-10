@@ -10,7 +10,7 @@ class Uptime:
     @commands.command()
     async def uptime(self):
         """
-        Get the time the bot has been active.
+        ボットの稼働時間を確認できます。
         """
         current_time = time.time()
         difference = int(round(current_time - start_time))

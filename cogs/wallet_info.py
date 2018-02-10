@@ -10,7 +10,7 @@ class Wallet:
 
     @commands.command()
     async def wallet(self):
-        """Shows wallet info"""
+        """ウォレットの情報を確認します。"""
         info = self.rpc.getinfo()
         wallet_balance = str(float(info["balance"]))
         block_height = info["blocks"]

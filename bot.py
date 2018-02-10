@@ -43,14 +43,14 @@ async def send_cmd_help(ctx):
     if ctx.invoked_subcommand:
         pages = bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
         for page in pages:
-            em = discord.Embed(title="Missing args :x:",
+            em = discord.Embed(title="引数が足りません :x:",
                                description=page.strip("```").replace('<', '[').replace('>', ']'),
                                color=discord.Color.red())
             await bot.send_message(ctx.message.channel, embed=em)
     else:
         pages = bot.formatter.format_help_for(ctx, ctx.command)
         for page in pages:
-            em = discord.Embed(title="Missing args :x:",
+            em = discord.Embed(title="引数が足りません :x:",
                                description=page.strip("```").replace('<', '[').replace('>', ']'),
                                color=discord.Color.red())
             await bot.send_message(ctx.message.channel, embed=em)

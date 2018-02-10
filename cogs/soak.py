@@ -13,9 +13,9 @@ class Soak:
         self.bot = bot
         soak_config = parsing.parse_json('config.json')['soak']
         '''
-        soak_max_recipients sets the max recipients for a soak. chosen randomly.
-        soak_min_received sets the minimum possible soak received for a user.
-        The number of soak recipients will be adjusted to fit these constraints
+        soak_max_recipients でsoakに参加できる最大人数を指定します。
+        soak_min_received でユーザーごとの受け取るsoakの最小値を指定します。
+        soakの参加者数は各種制限により変動します。
         if enabled via use_max_recipients and use_min_received
         '''
         self.soak_max_recipients = soak_config["soak_max_recipients"]
