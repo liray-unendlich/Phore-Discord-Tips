@@ -72,12 +72,12 @@ class Soak:
             mysql.check_for_user(user.id)
             mysql.add_tip(snowflake, user.id, amount_split)
 
-        long_soak_msg = "{} ** {} PHR を {} [{}] 人へsoakしました！:money_with_wings:**".format(ctx.message.author.mention, str(amount_split), ', '.join([x.mention for x in receivers]), str(amount))
+#        long_soak_msg = "{} ** {} PHR を {} [{}] 人へsoakしました！:money_with_wings:**".format(ctx.message.author.mention, str(amount_split), ', '.join([x.mention for x in receivers]), str(amount))
 
-        if len(long_soak_msg) > 2000:
-            await self.bot.say("{} ** {} PHR を {} ユーザーへsoakしました！ [{}] :money_with_wings:**".format(ctx.message.author.mention, str(amount_split), len_receivers, str(amount)))
-        else:
-            await self.bot.say(long_soak_msg)
+#        if len(long_soak_msg) > 2000:
+        await self.bot.say("{} ** {} PHR を {} ユーザーへsoakしました！ [{}] :money_with_wings:**".format(ctx.message.author.mention, str(amount_split), len_receivers, str(amount)))
+#        else:
+#            await self.bot.say(long_soak_msg)
 
     @commands.command()
     async def soak_info(self):
