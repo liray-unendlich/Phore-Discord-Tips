@@ -1,6 +1,6 @@
 import discord, os
 from discord.ext import commands
-from utils import checks, output
+#from utils import checks, output
 from aiohttp import ClientSession
 import urllib.request
 import json
@@ -14,17 +14,16 @@ class Pricing:
         """
         PHRの価格情報を確認できます。
         """
-        headers={"user-agent" : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36"}
         try:
             async with ClientSession() as session:
-                async with session.get("https://api.coinmarketcap.com/v1/ticker/") as response:
+                async with session.get("https://api.coinmarketcap.com/v1/ticker/phore/?convert=JPY") as response:
                     responseRaw = await response.read()
-                    priceData = json.loads(responseRaw)['phore']
+                    priceData = json.loads(responseRaw)[0]
                     embed = discord.Embed(colour=0x00FF00)
-                    embed.add_field(name="24h-Volume USD", value="{} USD".format(priceData['24h_volume_usd']))
-                    embed.add_field(name="marketcap USD", value="{} USD".format(priceData['market_cap_usd']))
-                    embed.add_field(name="price_BTC", value="{} BTC".format(priceData['price_btc']))
-                    embed.add_field(name="price-JPY", value="{} JPY".format((priceData['price_jpy'])))
+                    embed.add_field(name="順位", value="{} 位".format(priceData["rank"]))
+                    embed.add_field(name="価格(BTC)", value="{} BTC".format(priceData["price_btc"]))
+                    embed.add_field(name="価格(JPY)", value="{} JPY".format(priceData["price_jpy"]))
+                    embed.add_field(name="流通枚数", value="{} PHR".format((priceData["available_supply"])))
                     await self.bot.say(embed=embed)
         except:
             await self.bot.say(":エラー: 価格情報の取得に失敗しました!")
