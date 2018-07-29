@@ -12,7 +12,7 @@ class Pricing:
     @commands.command()
     async def price(self, amount=1):
         """
-        PHRの価格情報を確認できます。
+        PHRの価格情報を確認
         """
         try:
             async with ClientSession() as session:

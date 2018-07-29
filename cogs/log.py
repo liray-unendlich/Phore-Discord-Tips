@@ -13,7 +13,7 @@ class Log:
     @commands.check(checks.is_owner)
     async def log(self, ctx, num_lines: int):
         """
-        ボットのログを出力します。
+        ボットのログを出力
         """
         with open(config["file"], "r") as f:
             text = f.readlines()

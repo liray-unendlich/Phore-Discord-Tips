@@ -10,6 +10,7 @@ class Deposit:
 
     @commands.command(pass_context=True)
     async def deposit(self, ctx):
+        """預け入れアドレスを表示します"""
         user = ctx.message.author
         # Check if user exists in db
         mysql.check_for_user(user.id)

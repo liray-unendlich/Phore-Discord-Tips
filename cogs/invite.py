@@ -8,7 +8,7 @@ class Invite:
     @commands.command()
     async def invite(self):
         """
-        ボットの招待リンクを作成します。
+        ボットの招待リンクを作成
         """
         await self.bot.say(":tada: https://discordapp.com/oauth2/authorize?permissions=0&client_id={}&scope=bot".format(self.bot.user.id))
 

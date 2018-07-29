@@ -10,7 +10,7 @@ class Help:
     @commands.command(pass_context=True)
     async def help(self, ctx):
         """
-        このボットのコマンドの説明一覧です。
+        コマンド一覧
         """
         desc = ""
         for key in self.bot.commands.keys():

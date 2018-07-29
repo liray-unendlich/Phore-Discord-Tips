@@ -14,7 +14,7 @@ class Server:
     @commands.check(checks.is_owner)
     async def allowsoak(self, ctx, enable: bool):
         """
-        サーバー上のユーザーに対してsoakを利用可能にします。
+        サーバー上のユーザーに対してsoakを利用可能に
         """
         mysql.set_soak(ctx.message.server, int(enable))
         if enable:
@@ -27,7 +27,7 @@ class Server:
     @commands.check(checks.is_owner)
     async def checksoak(self, ctx):
         """
-        サーバー上でsoakが利用可能かチェックします。
+        サーバー上でsoakが利用可能かチェック
         """
         result_set = mysql.check_soak(ctx.message.server)
         if result_set:

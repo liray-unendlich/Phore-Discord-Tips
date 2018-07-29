@@ -10,7 +10,7 @@ class Uptime:
     @commands.command()
     async def uptime(self):
         """
-        ボットの稼働時間を確認できます。
+        ボットの稼働時間を確認
         """
         current_time = time.time()
         difference = int(round(current_time - start_time))

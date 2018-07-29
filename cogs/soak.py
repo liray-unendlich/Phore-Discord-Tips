@@ -26,7 +26,7 @@ class Soak:
     @commands.command(pass_context=True)
     @commands.check(checks.allow_soak)
     async def soak(self, ctx, amount: float):
-        """Tip all online users"""
+        """オンラインのユーザーに投げ銭します"""
         if self.use_max_recipients and self.soak_max_recipients == 0:
             await self.bot.say("**:warning: soakの最大ユーザーが0に設定されています。開発者に連絡し、修正を依頼してください。:warning:**")
             return

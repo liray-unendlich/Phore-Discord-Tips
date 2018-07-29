@@ -30,7 +30,7 @@ class Rpc:
         response = requests.post(self.serverURL, headers=self.headers, data=payload,
                                 auth=(self.rpc_user, self.rpc_pass))
         return response.json()['result']
-    
+
     def getconnectioncount(self):
         payload = json.dumps({"method": "getconnectioncount", "params": [], "jsonrpc": "2.0"})
         response = requests.post(self.serverURL, headers=self.headers, data=payload,
@@ -60,3 +60,9 @@ class Rpc:
         response = requests.post(self.serverURL, headers=self.headers, data=payload,
                                 auth=(self.rpc_user, self.rpc_pass))
         return response.json()['result']
+
+   def masternodestatus(self, param):
+        payload = json.dumps({"method": "listmasternodes", "params": [param], "jsonrpc": "2.0"})
+        response = requests.post(self.serverURL, headers=self.headers, data=payload,
+                                auth=(self.rpc_user, self.rpc_pass))
+        return response.json()['result'][0]
