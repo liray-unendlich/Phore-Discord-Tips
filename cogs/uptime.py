@@ -1,7 +1,10 @@
-import discord, datetime, time
+import discord
+import datetime
+import time
 from discord.ext import commands
 
 start_time = time.time()
+
 
 class Uptime:
     def __init__(self, bot):

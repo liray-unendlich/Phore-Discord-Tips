@@ -1,4 +1,7 @@
-import discord, json, requests, pymysql.cursors
+import discord
+import json
+import requests
+import pymysql.cursors
 from discord.ext import commands
 from utils import rpc_module, mysql_module, parsing, checks
 
@@ -12,7 +15,7 @@ class Tip:
 
     @commands.command(pass_context=True)
     @commands.check(checks.in_server)
-    async def tip(self, ctx, user:discord.Member, amount:float):
+    async def tip(self, ctx, user: discord.Member, amount: float):
         """ユーザーに対してtip"""
         snowflake = ctx.message.author.id
 
@@ -35,6 +38,7 @@ class Tip:
         else:
             mysql.add_tip(snowflake, tip_user, amount)
             await self.bot.say("{} **{} へ {} PHR をtipしました! :money_with_wings:**".format(ctx.message.author.mention, user.mention, str(amount)))
+
 
 def setup(bot):
     bot.add_cog(Tip(bot))

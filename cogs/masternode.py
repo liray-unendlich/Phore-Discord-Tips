@@ -3,15 +3,16 @@ from discord.ext import commands
 from utils import rpc_module, mysql_module
 from datetime import *
 
-#result_set = database response with parameters from query
-#db_bal = nomenclature for result_set["balance"]
-#snowflake = snowflake from message context, identical to user in database
-#wallet_bal = nomenclature for wallet reponse
+# result_set = database response with parameters from query
+# db_bal = nomenclature for result_set["balance"]
+# snowflake = snowflake from message context, identical to user in database
+# wallet_bal = nomenclature for wallet reponse
 
 
 rpc = rpc_module.Rpc()
 
 JST = timezone(timedelta(hours=+9), 'JST')
+
 
 class Masternode:
 
@@ -35,14 +36,18 @@ class Masternode:
         """マスターノードの状態を確認"""
         # post listmasternodes to rpc client
         result = rpc.masternodestatus(param)
-        status = result['status']
-        addr = result['addr']
-        lastpaid_time = result['lastpaid']
-        last_paid_time = datetime.fromtimestamp(lastpaid_time, JST)
-
-
+        if result == []:
+            status = "NOT FOUND"
+            addr = "NO DATA"
+            last_paid_time = "NO DATA"
+        else:
+            status = result[0]['status']
+            addr = result[0]['addr']
+            lastpaid_time = result[0]['lastpaid']
+            last_paid_time = datetime.fromtimestamp(lastpaid_time, JST)
         # Execute and return SQL Query
         await self.do_embed(ctx.message.author, status, addr, last_paid_time)
+
 
 def setup(bot):
     bot.add_cog(Masternode(bot))

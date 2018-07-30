@@ -146,7 +146,7 @@ class Mysql:
 # endregion
 
 # region Balance
-        def set_balance(self, snowflake, to, is_unconfirmed = False):
+        def set_balance(self, snowflake, to, is_unconfirmed=False):
             cursor = self.__setup_cursor(
                 pymysql.cursors.DictCursor)
             if is_unconfirmed:
@@ -157,7 +157,7 @@ class Mysql:
             cursor.close()
             self.__connection.commit()
 
-        def get_balance(self, snowflake, check_update=False, check_unconfirmed = False):
+        def get_balance(self, snowflake, check_update=False, check_unconfirmed=False):
             if check_update:
                 self.check_for_updated_balance(snowflake)
             result_set = self.get_user(snowflake)
@@ -166,7 +166,7 @@ class Mysql:
             else:
                 return result_set.get("balance")
 
-        def add_to_balance(self, snowflake, amount, is_unconfirmed = False):
+        def add_to_balance(self, snowflake, amount, is_unconfirmed=False):
             self.set_balance(snowflake, self.get_balance(
                 snowflake) + Decimal(amount))
 
@@ -175,12 +175,16 @@ class Mysql:
                 snowflake) - Decimal(amount))
 
         def add_to_balance_unconfirmed(self, snowflake, amount):
-            balance_unconfirmed = self.get_balance(snowflake, check_unconfirmed = True)
-            self.set_balance(snowflake, balance_unconfirmed + Decimal(amount), is_unconfirmed = True)
+            balance_unconfirmed = self.get_balance(
+                snowflake, check_unconfirmed=True)
+            self.set_balance(snowflake, balance_unconfirmed +
+                             Decimal(amount), is_unconfirmed=True)
 
         def remove_from_balance_unconfirmed(self, snowflake, amount):
-            balance_unconfirmed = self.get_balance(snowflake, check_unconfirmed = True)
-            self.set_balance(snowflake, balance_unconfirmed - Decimal(amount), is_unconfirmed = True)
+            balance_unconfirmed = self.get_balance(
+                snowflake, check_unconfirmed=True)
+            self.set_balance(snowflake, balance_unconfirmed -
+                             Decimal(amount), is_unconfirmed=True)
 
         def check_for_updated_balance(self, snowflake):
             """

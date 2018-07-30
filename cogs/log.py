@@ -1,4 +1,6 @@
-import discord, os, itertools
+import discord
+import os
+import itertools
 from discord.ext import commands
 from utils import parsing, checks
 

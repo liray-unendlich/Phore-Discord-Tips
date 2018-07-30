@@ -21,7 +21,7 @@ cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 #cursor.execute("DROP DATABASE IF EXISTS {};".format(database))
 #cursor.execute("CREATE DATABASE IF NOT EXISTS {};".format(database))
-#conn.commit()
+# conn.commit()
 
 #cursor.execute("USE {};".format(database))
 

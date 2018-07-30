@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from utils import checks
 
+
 class Help:
     def __init__(self, bot: discord.ext.commands.Bot):
         self.bot = bot
@@ -19,12 +20,13 @@ class Help:
                 continue
 
             if command.aliases:
-                desc += "`!{}`".format(command.name)+" - {}\nエイリアス: `{}`\n".format(command.short_doc,
-                ",".join(command.aliases))
+                desc += "`!{}`".format(command.name) + " - {}\nエイリアス: `{}`\n".format(command.short_doc,
+                                                                                     ",".join(command.aliases))
                 desc += "\n"
 
             elif command.short_doc:
-                desc += "`!{}`".format(command.name)+" - {}\n".format(command.short_doc)
+                desc += "`!{}`".format(command.name) + \
+                    " - {}\n".format(command.short_doc)
                 desc += "\n"
 
             else:
@@ -32,7 +34,8 @@ class Help:
                 desc += "\n"
 
         embed = discord.Embed(description=desc)
-        embed.set_author(icon_url=self.bot.user.avatar_url, name="PhoreBot コマンド!")
+        embed.set_author(icon_url=self.bot.user.avatar_url,
+                         name="PhoreBot コマンド!")
         try:
             await self.bot.send_message(ctx.message.author, embed=embed)
             if ctx.message.server is not None:

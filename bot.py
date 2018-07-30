@@ -9,7 +9,8 @@ config = parsing.parse_json('config.json')
 
 Mysql = mysql_module.Mysql()
 
-bot = commands.Bot(command_prefix=config['prefix'], description=config["description"])
+bot = commands.Bot(
+    command_prefix=config['prefix'], description=config["description"])
 
 try:
     os.remove("log.txt")
@@ -34,8 +35,10 @@ async def on_ready():
 
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
-            output.error('Failed to load extension {}\n\t->{}'.format(extension, exc))
-    output.success('Successfully loaded the following extension(s): {}'.format(', '.join(loaded_extensions)))
+            output.error(
+                'Failed to load extension {}\n\t->{}'.format(extension, exc))
+    output.success('Successfully loaded the following extension(s): {}'.format(
+        ', '.join(loaded_extensions)))
     output.info('You can now invite the bot to a server using the following link: https://discordapp.com/oauth2/authorize?client_id={}&scope=bot'.format(bot.user.id))
 
 
@@ -44,14 +47,16 @@ async def send_cmd_help(ctx):
         pages = bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
         for page in pages:
             em = discord.Embed(title="引数が足りません :x:",
-                               description=page.strip("```").replace('<', '[').replace('>', ']'),
+                               description=page.strip("```").replace(
+                                   '<', '[').replace('>', ']'),
                                color=discord.Color.red())
             await bot.send_message(ctx.message.channel, embed=em)
     else:
         pages = bot.formatter.format_help_for(ctx, ctx.command)
         for page in pages:
             em = discord.Embed(title="引数が足りません :x:",
-                               description=page.strip("```").replace('<', '[').replace('>', ']'),
+                               description=page.strip("```").replace(
+                                   '<', '[').replace('>', ']'),
                                color=discord.Color.red())
             await bot.send_message(ctx.message.channel, embed=em)
 
@@ -59,7 +64,7 @@ async def send_cmd_help(ctx):
 @bot.command(pass_context=True, hidden=True)
 @commands.check(checks.is_owner)
 async def shutdown(ctx):
-    """Shut down the bot"""
+    """ボットを停止"""
     author = str(ctx.message.author)
 
     try:
@@ -77,7 +82,7 @@ async def shutdown(ctx):
 @bot.command(pass_context=True, hidden=True)
 @commands.check(checks.is_owner)
 async def load(ctx, module: str):
-    """Load a cog located in /cogs"""
+    """/cogs 内にある指定データを読込"""
     author = str(ctx.message.author)
     module = module.strip()
 
@@ -97,7 +102,7 @@ async def load(ctx, module: str):
 @bot.command(pass_context=True, hidden=True)
 @commands.check(checks.is_owner)
 async def unload(ctx, module: str):
-    """Unload any loaded cog"""
+    """指定された/cogs内データを読込解除"""
     author = str(ctx.message.author)
     module = module.strip()
 
@@ -105,7 +110,7 @@ async def unload(ctx, module: str):
         bot.unload_extension("cogs.{}".format(module))
         output.info('{} unloaded module: {}'.format(author, module))
         startup_extensions.remove(module)
-        await bot.say("Successfully unloaded {}.py".format(module))
+        await bot.say("{}.py のアンロードが完了".format(module))
 
     except Exception as e:
         exc = '{}: {}'.format(type(e).__name__, e)
@@ -115,18 +120,18 @@ async def unload(ctx, module: str):
 @bot.command(hidden=True)
 @commands.check(checks.is_owner)
 async def loaded():
-    """List loaded cogs"""
+    """読み込まれたcogs内データを表示"""
     string = ""
     for cog in loaded_extensions:
         string += str(cog) + "\n"
 
-    await bot.say('Currently loaded extensions:\n```{}```'.format(string))
+    await bot.say('現在読み込んでいる機能はこちら:\n```{}```'.format(string))
 
 
 @bot.command(pass_context=True, hidden=True)
 @commands.check(checks.is_owner)
 async def restart(ctx):
-    """Restart the bot"""
+    """ボットの再起動"""
     author = str(ctx.message.author)
 
     try:
@@ -161,13 +166,15 @@ async def on_channel_create(channel):
     if isinstance(channel, discord.PrivateChannel):
         return
     Mysql.add_channel(channel)
-    output.info("Channel {0} added to {1}".format(channel.name, channel.server.name))
+    output.info("Channel {0} added to {1}".format(
+        channel.name, channel.server.name))
 
 
 @bot.event
 async def on_channel_delete(channel):
     Mysql.remove_channel(channel)
-    output.info("Channel {0} deleted from {1}".format(channel.name, channel.server.name))
+    output.info("Channel {0} deleted from {1}".format(
+        channel.name, channel.server.name))
 
 
 @bot.event
@@ -178,7 +185,8 @@ async def on_command_error(error, ctx):
     elif isinstance(error, commands.BadArgument):
         await send_cmd_help(ctx)
     elif isinstance(error, commands.CommandInvokeError):
-        output.error("Exception in command '{}', {}".format(ctx.command.qualified_name, error.original))
+        output.error("Exception in command '{}', {}".format(
+            ctx.command.qualified_name, error.original))
         oneliner = "Error in command '{}' - {}: {}\nIf this issue persists, Please report it in the support server.".format(
             ctx.command.qualified_name, type(error.original).__name__, str(error.original))
         await ctx.bot.send_message(channel, oneliner)

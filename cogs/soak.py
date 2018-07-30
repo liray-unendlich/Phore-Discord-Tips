@@ -40,7 +40,8 @@ class Soak:
             await self.bot.say("{} **:warning:所持金より多くをsoakすることは出来ません。!:warning:**".format(ctx.message.author.mention))
             return
 
-        online_users = [x for x in ctx.message.server.members if x.status == discord.Status.online]
+        online_users = [
+            x for x in ctx.message.server.members if x.status == discord.Status.online]
         if ctx.message.author in online_users:
             online_users.remove(ctx.message.author)
 
@@ -92,6 +93,7 @@ class Soak:
             st_min_received = "<disabled>"
 
         await self.bot.say("Soak 情報: 最大参加者 {}, 受け取りに必要な枚数 {}".format(st_max_users, st_min_received))
+
 
 def setup(bot):
     bot.add_cog(Soak(bot))

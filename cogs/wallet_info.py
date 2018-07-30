@@ -1,4 +1,6 @@
-import discord, json, requests
+import discord
+import json
+import requests
 from discord.ext import commands
 from utils import rpc_module as rpc
 
@@ -16,7 +18,8 @@ class Wallet:
         block_height = info["blocks"]
         connection_count = self.rpc.getconnectioncount()
         embed = discord.Embed(colour=discord.Colour.red())
-        embed.add_field(name="残高", value="{:.8f} PHR".format(float(wallet_balance)))
+        embed.add_field(name="残高", value="{:.8f} PHR".format(
+            float(wallet_balance)))
         embed.add_field(name="接続数", value=connection_count)
         embed.add_field(name="ブロック高", value=block_height)
 

@@ -14,11 +14,11 @@ message = ['[ERROR]   ', '[WARNING] ', '[SUCCESS] ', '[INFO]    ']
 
 def do_syn(string, var):
     if var <= config["print_level"]:
-        print(color[var]+message[var]+'\033[1;37;49m{0}'.format(string))
+        print(color[var] + message[var] + '\033[1;37;49m{0}'.format(string))
 
     if var <= config["file_level"]:
         with open(config["file"], "a") as f:
-            f.write(message[var]+'{0}'.format(string) + "\n")
+            f.write(message[var] + '{0}'.format(string) + "\n")
 
 
 def error(string):
@@ -35,6 +35,3 @@ def success(string):
 
 def info(string):
     do_syn(string, 3)
-
-
-
