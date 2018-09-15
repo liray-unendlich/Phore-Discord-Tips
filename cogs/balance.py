@@ -46,6 +46,23 @@ class Balance:
         # Execute and return SQL Query
         await self.do_embed(ctx.message.author, balance, balance_unconfirmed)
 
+    @commands.command(pass_context=True)
+    async def getbalance(self, addr):
+        """指定アドレスの残高を表示します"""
+        url = "https://chainz.cryptoid.info/phr/api.dws?q=getbalance&key=625644bccfa9&a="+addr
+        try:
+            async with ClientSession() as session:
+                async with session.get(url) as response:
+                    responseRaw = await response.read()
+                    priceData = json.loads(responseRaw)[0]
+                    embed = discord.Embed(colour=0x00FF00)
+                    embed.add_field(name="アドレス", value=addr)
+                    embed.add_field(
+                        name="残高", value="{}PHR".format(priceData))
+
+                    await self.bot.say(embed=embed)
+        except:
+            await self.bot.say(":error: データ取得に失敗しました！")
 
 def setup(bot):
     bot.add_cog(Balance(bot))
